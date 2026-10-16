@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPV/EHU – Oferta Pública de Empleo 2023-2024 (GRUPO C1 - ESCALA ADMINISTRATIVA)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F0F0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .contenedor-principal {
+            width: 100%;
+            max-width: 1200px;
+            padding-top: 100px;
+        }
+
+        /* Estilos de la cabecera */
+        .encabezado-ope {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            border-bottom: 1.5px solid #2b2a7f;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            background-color: #F0F0F0;
+            z-index: 1000;
+        }
+
+        .encabezado-ope .logo-ehu {
+            width: 150px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .encabezado-ope .texto-cabecera {
+            flex: 1;
+            text-align: center;
+        }
+
+        .encabezado-ope .linea-titulo {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .encabezado-ope .linea-titulo.principal {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2b2a7f;
+            letter-spacing: 0.02em;
+            margin-bottom: 2px;
+        }
+
+        .encabezado-ope .linea-titulo.secundaria {
+            font-size: 13px;
+            font-weight: normal;
+            color: #666;
+        }
+
+        @media (max-width: 500px) {
+            .encabezado-ope {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Layout de 2 Columnas */
+        .layout-dos-columnas {
+            display: grid;
+            grid-template-columns: 95px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* Columna Izquierda: Menú / Acceso Rápido */
+        .columna-indice {
+            background-color: #F0F0F0;
+            border-radius: 4px;
+            padding: 0 0 15px;
+            position: sticky;
+            top: 110px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .indice-titulo {
+            font-size: 15px;
+            
+            color: #2b2a7f;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+            height: 40px;
+            line-height: 39px;
+            border-bottom: 1px solid #2b2a7f;
+        }
+
+        .lista-indice {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+
+        .enlace-bloque {
+            display: block;
+            width: 100%;
+            padding: 5px 6px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            color: #004085;
+            text-decoration: none;
+            font-size: 13px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .enlace-bloque:hover {
+            background-color: #cce5ff;
+            border-color: #2b2a7f;
+        }
+
+        /* Columna Derecha: Contenido de Temas */
+        .columna-contenido {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tarjeta-bloque {
+            background-color: #ffffff;
+            border: 1px solid #2b2a7f;
+            border-radius: 4px;
+            padding: 15px 20px;
+            scroll-margin-top: 130px;
+        }
+
+        .cabecera-bloque {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eef0fb;
+        }
+
+        .titulo-bloque {
+            font-size: 15px;
+            font-weight: bold;
+            color: #2b2a7f;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .boton-iniciar {
+            background-color: #2b2a7f;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .boton-iniciar:hover {
+            background-color: #004085;
+        }
+
+        .lista-temas {
+            margin: 0;
+            padding-left: 18px;
+            color: #333;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .lista-temas li {
+            margin-bottom: 8px;
+            text-align: justify;
+        }
+
+        .lista-temas li:last-child {
+            margin-bottom: 0;
+        }
+
+        .lista-temas strong {
+            color: #000;
+        }
+
+        .sin-preguntas {
+            color: red;
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        /* Iframe de contenido (columna derecha) */
+        .marco-contenido {
+            width: 100%;
+            height: 80vh;
+            display: block;
+            border: none;
+            border-radius: 4px;
+            background-color: #ffffff;
+        }
+
+        /* Enlaces del índice sin test asignado */
+        .enlace-bloque-inactivo {
+            color: #a36868;            
+    	    background-color: #fbf0f0; 
+            border-color: #ebd5d5;
+            pointer-events: none;
+        }
+
+        @media (max-width: 850px) {
+            .layout-dos-columnas {
+                grid-template-columns: 1fr;
+            }
+
+            .columna-indice {
+                position: static;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-principal">
+        
+        <header class="encabezado-ope">
+            <img src="img/logo.png" alt="Logotipo UPV/EHU" class="logo-ehu">
+            <div class="texto-cabecera">
+                <h1 class="linea-titulo principal">Diputación Foral de Gipuzkoa</h1>
+                <p class="linea-titulo secundaria">Administrativo - Subgrupo C1</p>          
+            </div>
+        </header>
+
+        <div class="layout-dos-columnas">
+            
+            <!-- COLUMNA IZQUIERDA: ÍNDICE DE TEMAS -->
+            <nav class="columna-indice">
+                <p class="indice-titulo">TEMARIO</p>
+                <ul class="lista-indice">
+                    <li><a href="test/Tema1.html" target="marco-contenido" class="enlace-bloque">Tema 1</a></li>
+                    <li><a href="test/Tema2.html" target="marco-contenido" class="enlace-bloque">Tema 2</a></li>
+                    <li><a href="test/Tema3.html" target="marco-contenido" class="enlace-bloque">Tema 3</a></li>
+                    <li><a href="test/Tema4.html" target="marco-contenido" class="enlace-bloque">Tema 4</a></li>
+                    <li><a href="test/Tema5.html" target="marco-contenido" class="enlace-bloque">Tema 5</a></li>
+                    <li><a href="test/Tema6.html" target="marco-contenido" class="enlace-bloque">Tema 6</a></li>
+                    <li><a href="test/Tema7.html" target="marco-contenido" class="enlace-bloque">Tema 7</a></li>
+                    <li><a href="test/Tema8.html" target="marco-contenido" class="enlace-bloque">Tema 8</a></li>
+                    <li><a href="test/60_Aleatorias.html" target="marco-contenido" class="enlace-bloque">60 Aleatorias</a></li>
+                </ul>
+            </nav>
+
+            <!-- COLUMNA DERECHA: CONTENIDO DEL TEMA SELECCIONADO -->
+            <main class="columna-contenido">
+                <iframe id="marco-contenido" name="marco-contenido" class="marco-contenido" title="Contenido del tema" srcdoc="<p style=&quot;font-family:Arial, sans-serif; color:#666; text-align:center; margin-top:40px;&quot;>Selecciona un tema del índice para comenzar el test.</p>"></iframe>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Escucha la altura real que le reporta cada tema cargado en el iframe
+        // (postMessage funciona aunque el navegador bloquee el acceso directo
+        // a iframe.contentWindow.document al abrir los archivos como file://)
+        window.addEventListener('message', function (event) {
+            if (event.data && event.data.tipo === 'alturaContenido') {
+                document.getElementById('marco-contenido').style.height = event.data.altura + 'px';
+            }
+        });
+    </script>
+</body>
+</html>
