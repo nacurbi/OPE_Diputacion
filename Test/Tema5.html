@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 5. Leyes 39/2015 y 40/2015 (111 - 170)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F0F0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .contenedor-principal {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            padding: 0 20px 20px;
+            z-index: 1;
+        }
+
+        section.contenedor-test, footer.rectangulo-resumen {
+            background-color: white;
+            padding: 20px;
+            border-radius: 2px;
+            width: 800px;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        section.contenedor-test {
+            border: 1px solid #2b2a7f;
+        }
+
+        .titulo-test {
+            font-size: 20px;
+            font-weight: bold;
+            color: #6c757d;
+            line-height: 1.2;
+            margin: 0 0 -14px 0;
+            text-align: center;
+        }
+        .titulo-test .rango-test {
+            font-size: 0.7em;
+        }
+        .subtitulo-test {
+            font-size: 14px;
+            color: #6c757d;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+
+        .pregunta {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: left;
+        }
+        .opciones-contenedor {
+            display: grid;
+            gap: 3px;
+            margin-bottom: 25px;
+        }
+        .opcion {
+            background-color: white;
+            border: none;
+            color: #495057;
+            padding: 15px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s, border-color 0.2s;
+            text-align: left;
+        }
+        .opcion:hover {
+            background-color: #dee2e6;
+        }
+        .opcion.seleccionada {
+            background-color: #cce5ff;
+            border-color: #2b2a7f;
+            color: #004085;
+        }
+        .opcion.correcta {
+            background-color: #85d192;
+            border-color: #85d192;
+            color: #155724;
+            cursor: default;
+        }
+        .opcion.incorrecta {
+            background-color: #f0a1a8;
+            border-color: #f0a1a8;
+            color: #721c24;
+            cursor: default;
+        }
+        .opcion.correcta:hover, .opcion.incorrecta:hover {
+            background-color: #85d192;
+            color: #155724;
+            border-color: #85d192;
+        }
+        .opcion.incorrecta:hover {
+            background-color: #f0a1a8;
+            color: #721c24;
+            border-color: #f0a1a8;
+        }
+        .navegacion-btn-contenedor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .comprobar-btn {
+            background-color: #cce5ff;
+            color: #004085;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 2px;
+            font-size: 12px;
+            width: 100px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .comprobar-btn:hover {
+            background-color: #b3d7ff;
+        }
+        .hidden {
+            display: none;
+        }
+
+        .navegacion-btn {
+            background-color: #E0E0E0;
+            color: #555;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 2px;
+            font-size: 12px;
+            width: 100px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .navegacion-btn:hover {
+            background-color: #CFCFCF;
+        }
+        .navegacion-btn:disabled {
+            background-color: #f1f1f1;
+            color: #aaa;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        footer.rectangulo-resumen {
+            background-color: #F0F0F0;
+            padding: 0 20px 20px;
+            border-radius: 2px;
+            width: 800px;
+            margin-top: -14px;
+            overflow-y: auto;
+        }
+        .indices-contenedor {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .indice-pregunta {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: #495057;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .indice-pregunta.activa {
+            background-color: #cce5ff;
+            color: #004085;
+            border: none;
+        }
+        .indice-pregunta:hover {
+            background-color: #dee2e6;
+        }
+        .indice-pregunta.correcta {
+            background-color: #85d192;
+            color: #155724;
+        }
+        .indice-pregunta.incorrecta {
+            background-color: #f0a1a8;
+            color: #495057;
+        }
+
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .custom-modal {
+            background-color: white;
+            padding: 30px;
+            border-radius: 2px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .custom-modal h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .custom-modal button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        
+        @media (max-width: 800px) {
+            section.contenedor-test, footer.rectangulo-resumen {
+                width: 95%;
+                padding: 15px;
+            }
+            .opcion {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <h1 class="titulo-test">Tema 5. Leyes 39/2015 y 40/2015 <span class="rango-test">(111 - 170)</span></h1>
+        <section class="contenedor-test">
+            <article id="contenido-pregunta">
+                <div class="pregunta" id="pregunta-texto"></div>
+                <div class="opciones-contenedor" id="opciones-contenedor"></div>
+                <div class="navegacion-btn-contenedor">
+                    <button id="comprobar-btn" class="comprobar-btn">Comprobar</button>
+                    <button id="siguiente-btn" class="navegacion-btn">Siguiente</button>
+                </div>
+            </article>
+        </section>
+        <footer class="rectangulo-resumen" id="rectangulo-resumen">
+            <div class="indices-contenedor" id="indices-contenedor"></div>
+        </footer>
+    </div>
+
+    <div id="custom-modal-overlay" class="custom-modal-overlay hidden">
+        <div class="custom-modal">
+            <p id="custom-modal-message"></p>
+            <button id="custom-modal-ok">Aceptar</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let preguntas = [
+  {
+    "question": "De acuerdo con la Ley 39/2015, los procedimientos:",
+    "options": [
+      "A - Se iniciarán siempre de oficio.",
+      "B - Se iniciarán siempre a solicitud del interesado.",
+      "C - Podrán iniciarse de oficio o a solicitud del interesado.",
+      "D - Podrán iniciarse de oficio o a solicitud de los interesados, cuando el número de interesados sea significativo."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Iniciado el procedimiento, el órgano administrativo competente para resolver:",
+    "options": [
+      "A - Podrá adoptar, únicamente de oficio y de forma motivada, las medidas provisionales que estime oportunas para asegurar la eficacia de la resolución que pudiera recaer, si existiesen elementos de juicio suficientes para ello, de acuerdo con los principios de proporcionalidad, efectividad y menor onerosidad.",
+      "B - Podrá adoptar, de oficio o a instancia de parte y de forma motivada, las medidas provisionales que estime oportunas para asegurar la eficacia de la resolución que pudiera recaer, si existiesen elementos de juicio suficientes para ello, de acuerdo con los principios de proporcionalidad, efectividad y menor onerosidad.",
+      "C - Podrá adoptar, únicamente de oficio y de forma motivada, las medidas provisionales que estime oportunas para asegurar la eficacia de la resolución que pudiera recaer, con independencia de que existiesen elementos de juicio suficientes para ello.",
+      "D - Podrá adoptar, de oficio o a instancia de parte y de forma motivada, las medidas provisionales que estime oportunas para asegurar la eficacia de la resolución que pudiera recaer, con independencia de que existiesen elementos de juicio suficientes para ello."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Antes de la iniciación del procedimiento administrativo, el órgano competente para iniciar o instruir el procedimiento, de oficio o a instancia de parte, podrá adoptar de forma motivada las medidas provisionales que resulten necesarias y proporcionadas:",
+    "options": [
+      "A - En los casos de urgencia inaplazable y para la protección provisional de los intereses implicados.",
+      "B - En todos los casos.",
+      "C - Solo en los procedimientos sancionadores.",
+      "D - Solo en los procedimientos de responsabilidad patrimonial."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "No se podrán adoptar medidas provisionales:",
+    "options": [
+      "A - Que puedan causar perjuicio de difícil o imposible reparación a los interesados o que impliquen violación de derechos amparados por las leyes.",
+      "B - Cuando así lo solicite la persona interesada.",
+      "C - Cuando el plazo para la resolución del procedimiento sea menor a 1 año.",
+      "D - Cuando otras administraciones públicas puedan ser afectadas por las medidas a adoptar y muestren su disconformidad en un plazo de 10 días"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Señale la respuesta correcta. Los procedimientos se iniciarán de oficio por acuerdo del órgano competente:",
+    "options": [
+      "A - Exclusivamente por propia iniciativa o como consecuencia de orden superior.",
+      "B - Exclusivamente por propia iniciativa o a petición de otros órganos.",
+      "C - Bien por propia iniciativa o como consecuencia de orden superior, a petición de otros órganos o por denuncia.",
+      "D - Bien por propia iniciativa o como consecuencia de orden superior, a petición razonada de otros órganos o por denuncia."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, se entiende por propia iniciativa:",
+    "options": [
+      "A - La actuación derivada del conocimiento directo o indirecto de las circunstancias, conductas o hechos objeto del procedimiento por el órgano que tiene atribuida la competencia de iniciación.",
+      "B - La actuación derivada del conocimiento directo de las circunstancias, conductas o hechos objeto del procedimiento por el órgano que tiene atribuida la competencia de iniciación.",
+      "C - La actuación derivada del conocimiento indirecto de las circunstancias, conductas o hechos objeto del procedimiento por el órgano que tiene atribuida la competencia de iniciación.",
+      "D - La orden emitida por el órgano administrativo inmediatamente superior jerárquico del competente para la iniciación del procedimiento."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Señale la respuesta correcta:",
+    "options": [
+      "A - Se entiende por denuncia, el acto por el que cualquier persona que acredite estar interesado en el procedimiento, en cumplimiento o no de una obligación legal, pone en conocimiento de un órgano administrativo la existencia de un determinado hecho que pudiera justificar la iniciación de oficio de un procedimiento administrativo.",
+      "B - Las denuncias deberán expresar la identidad de la persona o personas que las presentan y el relato de los hechos que se ponen en conocimiento de la Administración. Cuando dichos hechos pudieran constituir una infracción administrativa, recogerán la fecha de su comisión y deberán identificarse a los presuntos responsables.",
+      "C - Cuando la denuncia invocara un perjuicio en el patrimonio de las Administraciones Públicas la no iniciación del procedimiento deberá ser motivada y se notificará a los denunciantes la decisión de si se ha iniciado o no el procedimiento.",
+      "D - La presentación de una denuncia confiere, por sí sola, la condición de interesado en el procedimiento."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Los procedimientos de naturaleza sancionadora:",
+    "options": [
+      "A - Se iniciarán siempre de oficio por acuerdo del órgano competente y establecerán la debida separación entre la fase instructora y la sancionadora, que no podrá encomendarse a órganos distintos.",
+      "B - Se iniciarán siempre de oficio por acuerdo del órgano competente y establecerán la debida separación entre la fase instructora y la sancionadora, que se encomendará a órganos distintos.",
+      "C - Podrán iniciarse de oficio o a solicitud del interesado y establecerán la debida separación entre la fase instructora y la sancionadora, que no podrá encomendarse a órganos distintos.",
+      "D - Podrán iniciarse de oficio o a solicitud del interesado y establecerán la debida separación entre la fase instructora y la sancionadora, que se encomendará a órganos distintos."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Señale la respuesta INCORRECTA. Las solicitudes de iniciación de procedimiento que se formulen deberán contener:",
+    "options": [
+      "A - Nombre y apellidos del interesado y, en su caso, de la persona que lo represente.",
+      "B - Identificación del medio electrónico, o en su defecto, lugar físico en que desea que se practique la notificación. Adicionalmente, los interesados deberán aportar su dirección de correo electrónico y/o dispositivo electrónico con el fin de que las Administraciones Públicas les avisen del envío o puesta a disposición de la notificación.",
+      "C - Hechos, razones y petición en que se concrete, con toda claridad, la solicitud.",
+      "D - Órgano, centro o unidad administrativa a la que se dirige y su correspondiente código de identificación."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Con carácter general, en los procedimientos de responsabilidad patrimonial:",
+    "options": [
+      "A - El derecho a reclamar prescribirá a los seis meses de producido el hecho o el acto que motive la indemnización o se manifieste su efecto lesivo.",
+      "B - El derecho a reclamar prescribirá al año de producido el hecho o el acto que motive la indemnización o se manifieste su efecto lesivo.",
+      "C - El derecho a reclamar prescribirá a los dos años de producido el hecho o el acto que motive la indemnización o se manifieste su efecto lesivo.",
+      "D - El derecho a reclamar no prescribe."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, si la solicitud de iniciación de un procedimiento administrativos no reúne los requisitos exigidos:",
+    "options": [
+      "A - Se requerirá al interesado para que, en un plazo de diez días, subsane la falta o acompañe los documentos preceptivos, con indicación de que, si así no lo hiciera, se le tendrá por desistido de su petición, previa resolución que deberá ser dictada en los términos previstos en el artículo 21.",
+      "B - Se requerirá al interesado para que, en un plazo improrrogable de diez días, subsane la falta o acompañe los documentos preceptivos, con indicación de que, si así no lo hiciera, se le tendrá por desistido de su petición, previa resolución que deberá ser dictada en los términos previstos en el artículo 21.",
+      "C - Se requerirá al interesado para que, en un plazo improrrogable de quince días, subsane la falta o acompañe los documentos preceptivos, con indicación de que, si así no lo hiciera, se le tendrá por desistido de su petición, previa resolución que deberá ser dictada en los términos previstos en el artículo 21.",
+      "D - La solicitud será inadmitida."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según el artículo 68 de la Ley 39/2015, el plazo de subsanación o mejora de una solicitud podrá ser ampliado prudencialmente:",
+    "options": [
+      "A - En los procedimientos selectivos.",
+      "B - En los procedimientos de concurrencia competitiva.",
+      "C - En cualquier tipo de procedimiento.",
+      "D - En cualquier tipo de procedimiento, siempre que no se trate de procedimientos selectivos o de concurrencia competitiva."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "A los efectos de la Ley 39/2015, se entenderá por declaración responsable:",
+    "options": [
+      "A - El documento suscrito por un interesado en el que éste manifiesta, bajo su responsabilidad, que cumple con los requisitos establecidos en la normativa vigente para obtener el reconocimiento de un derecho o facultad o para su ejercicio, que dispone de la documentación que así lo acredita, que la pondrá a disposición de la Administración cuando le sea requerida, y que se compromete a mantener el cumplimiento de las anteriores obligaciones durante el período de tiempo inherente a dicho reconocimiento o ejercicio.",
+      "B - Aquel documento mediante el que los interesados ponen en conocimiento de la Administración Pública competente sus datos identificativos o cualquier otro dato relevante para el inicio de una actividad o el ejercicio de un derecho.",
+      "C - El certificado técnico firmado por un profesional colegiado que garantiza que una obra o instalación cumple con todas las medidas de seguridad exigidas por la ley.",
+      "D - El documento emitido por la Administración Pública que autoriza al interesado a iniciar una actividad económica tras haber pagado las tasas correspondientes."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "A los efectos de la Ley 39/2015, se entenderá por comunicación:",
+    "options": [
+      "A - El documento suscrito por un interesado en el que éste manifiesta, bajo su responsabilidad, que cumple con los requisitos establecidos en la normativa vigente para obtener el reconocimiento de un derecho o facultad o para su ejercicio, que dispone de la documentación que así lo acredita, que la pondrá a disposición de la Administración cuando le sea requerida, y que se compromete a mantener el cumplimiento de las anteriores obligaciones durante el período de tiempo inherente a dicho reconocimiento o ejercicio.",
+      "B - Aquel documento mediante el que los interesados ponen en conocimiento de la Administración Pública competente sus datos identificativos o cualquier otro dato relevante para el inicio de una actividad o el ejercicio de un derecho.",
+      "C - El certificado técnico firmado por un profesional colegiado que garantiza que una obra o instalación cumple con todas las medidas de seguridad exigidas por la ley.",
+      "D - El documento emitido por la Administración Pública que autoriza al interesado a iniciar una actividad económica tras haber pagado las tasas correspondientes."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, se entiende por expediente administrativo:",
+    "options": [
+      "A - El conjunto ordenado de documentos y actuaciones que sirven de antecedente y fundamento a la resolución administrativa, así como las diligencias encaminadas a ejecutarla.",
+      "B - Es el documento único y definitivo, firmado por la autoridad competente, que pone fin a un procedimiento y agota la vía administrativa.",
+      "C - Es la suma de los recursos económicos y materiales que una unidad administrativa asigna para la tramitación de un procedimiento de licitación pública.",
+      "D - Es el sistema informático y la base de datos donde se almacenan exclusivamente las notas, borradores y comunicaciones internas que los funcionarios intercambian durante un proceso."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, los trámites que deban ser cumplimentados por los interesados:",
+    "options": [
+      "A - Deberán realizarse en el plazo de quince días a partir del siguiente al envío de la notificación del correspondiente acto, salvo en el caso de que en la norma correspondiente se fije plazo distinto.",
+      "B - Deberán realizarse en el plazo de diez días a partir del siguiente al envío de la notificación del correspondiente acto, salvo en el caso de que en la norma correspondiente se fije plazo distinto.",
+      "C - Deberán realizarse en el plazo de quince días a partir del siguiente al de la notificación del correspondiente acto, salvo en el caso de que en la norma correspondiente se fije plazo distinto.",
+      "D - Deberán realizarse en el plazo de diez días a partir del siguiente al de la notificación del correspondiente acto, salvo en el caso de que en la norma correspondiente se fije plazo distinto."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta:",
+    "options": [
+      "A - Los interesados podrán, en cualquier momento del procedimiento anterior a la resolución de la misma, aducir alegaciones y aportar documentos u otros elementos de juicio.",
+      "B - Los interesados solo podrán aducir alegaciones y aportar documentos u otros elementos de juicio cuando así lo solicite el órgano instructor.",
+      "C - Los interesados podrán, en cualquier momento del procedimiento anterior al trámite de audiencia, aducir alegaciones y aportar documentos u otros elementos de juicio.",
+      "D - Los interesados no podrán aducir alegaciones y aportar documentos u otros elementos de juicio una vez iniciado el procedimiento."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Salvo disposición expresa en contrario, los informes serán:",
+    "options": [
+      "A - Facultativos y vinculantes.",
+      "B - Facultativos y no vinculantes.",
+      "C - Preceptivos y vinculantes.",
+      "D - Preceptivos y no vinculantes."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "El informe emitido fuera de plazo:",
+    "options": [
+      "A - Podrá no ser tenido en cuenta al adoptar la correspondiente resolución.",
+      "B - No podrá ser tenido en cuenta al adoptar la correspondiente resolución.",
+      "C - Deberá ser tenido en cuenta al adoptar la correspondiente resolución, siempre y cuando se haya emitido antes de la resolución.",
+      "D - Deberá ser tenido en cuenta al adoptar la correspondiente resolución, siempre y cuando se haya emitido antes del trámite de audiencia."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, en los procedimientos de responsabilidad patrimonial será preceptivo solicitar dictamen del Consejo de Estado o, en su caso, del órgano consultivo de la Comunidad Autónoma:",
+    "options": [
+      "A - Cuando las indemnizaciones reclamadas sean de cuantía igual o superior a 50.000 euros o a la que se establezca en la correspondiente legislación autonómica, así como en aquellos casos que disponga la Ley Orgánica 3/1980, de 22 de abril, del Consejo de Estado.",
+      "B - Únicamente cuando las indemnizaciones reclamadas sean de cuantía igual o superior a 50.000 euros o a la que se establezca en la correspondiente legislación autonómica.",
+      "C - Únicamente en aquellos casos que disponga la Ley Orgánica 3/1980, de 22 de abril, del Consejo de Estado.",
+      "D - En todos los casos."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, respecto al trámite de audiencia:",
+    "options": [
+      "A - Los interesados, en un plazo inferior a diez días, podrán alegar y presentar los documentos y justificaciones que estimen pertinentes.",
+      "B - Los interesados, en un plazo inferior a quince días, podrán alegar y presentar los documentos y justificaciones que estimen pertinentes.",
+      "C - Los interesados, en un plazo no inferior a quince días ni superior a veinte, podrán alegar y presentar los documentos y justificaciones que estimen pertinentes.",
+      "D - Los interesados, en un plazo no inferior a diez días ni superior a quince, podrán alegar y presentar los documentos y justificaciones que estimen pertinentes."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Señale la respuesta correcta respecto a la información pública regulada en la Ley 39/2015:",
+    "options": [
+      "A - El órgano instructor del procedimiento, cuando la naturaleza de éste lo requiera, podrá acordar un período de información pública.",
+      "B - Se publicará un anuncio en la sede electrónica correspondiente a fin de que cualquier persona física o jurídica pueda examinar el expediente, o la parte del mismo que se acuerde.",
+      "C - La incomparecencia en este trámite no impedirá a los interesados interponer los recursos procedentes contra la resolución definitiva del procedimiento.",
+      "D - La comparecencia en el trámite de información pública otorga, por sí misma, la condición de interesado."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Señale la respuesta INCORRECTA respecto a la resolución:",
+    "options": [
+      "A - Antes de dictar resolución, el órgano competente para resolver podrá decidir, mediante acuerdo motivado, la realización de las actuaciones complementarias indispensables para resolver el procedimiento.",
+      "B - La resolución que ponga fin al procedimiento decidirá todas las cuestiones planteadas por los interesados y aquellas otras derivadas del mismo.",
+      "C - Cuando se trate de cuestiones conexas que no hubieran sido planteadas por los interesados, el órgano competente no podrá pronunciarse sobre las mismas.",
+      "D - En los procedimientos tramitados a solicitud del interesado, la resolución será congruente con las peticiones formuladas por éste, sin que en ningún caso pueda agravar su situación inicial y sin perjuicio de la potestad de la Administración de incoar de oficio un nuevo procedimiento, si procede."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "El interesado:",
+    "options": [
+      "A - Podrá desistir de su solicitud o, cuando ello no esté prohibido por el ordenamiento jurídico, renunciar a sus derechos.",
+      "B - Podrá desistir de su solicitud o, cuando ello no esté prohibido por el ordenamiento jurídico, renunciar a sus derechos en un plazo de diez desde su presentación. Finalizado el plazo, la Administración podrá no aceptar el desistimiento o la renuncia.",
+      "C - Podrá desistir de su solicitud o, cuando ello no esté prohibido por el ordenamiento jurídico, renunciar a sus derechos, previo pago de una compensación económica.",
+      "D - No podrá desistir de su solicitud o renunciar a sus derechos."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Con arreglo a lo dispuesto en la Ley 39/2015, salvo que reste menos para su tramitación ordinaria, ¿en qué tiempo deberán ser resueltos los procedimientos administrativos tramitados de manera simplificada?",
+    "options": [
+      "A - Diez días, a contar desde la notificación al interesado del acuerdo de tramitación simplificada del procedimiento.",
+      "B - Treinta días, a contar desde la notificación al interesado del acuerdo de tramitación simplificada del procedimiento.",
+      "C - Diez días, a contar desde el siguiente al que se notifique al interesado el acuerdo de tramitación simplificada del procedimiento.",
+      "D - Treinta días, a contar desde el siguiente al que se notifique al interesado el acuerdo de tramitación simplificada del procedimiento."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "El objeto de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas, es regular los requisitos de validez y eficacia de los actos administrativos, el procedimiento administrativo común a todas las Administraciones Públicas, incluyendo el sancionador y el de:",
+    "options": [
+      "A - Responsabilidad penal de las autoridades.",
+      "B - Reclamación de deudas entre particulares.",
+      "C - Responsabilidad de las Administraciones Públicas.",
+      "D - Selección de personal estatutario."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "La Ley 39/2015 se aplica al sector público, el cual comprende, según el artículo 2.1.c):",
+    "options": [
+      "A - Las empresas privadas con participación estatal mínima del 10 %.",
+      "B - Las organizaciones sindicales y empresariales.",
+      "C - Las entidades que integran la Administración Local.",
+      "D - Los partidos políticos y las fundaciones vinculadas a ellos."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "A los efectos previstos en la Ley 39/2015, tienen capacidad de obrar ante las Administraciones Públicas:",
+    "options": [
+      "A - Solo los mayores de edad.",
+      "B - Los menores de edad para el ejercicio y defensa de aquellos de sus derechos e intereses cuya actuación esté permitida por el ordenamiento jurídico sin la asistencia de la persona que ejerza la patria potestad, tutela o curatela. Se exceptúa el supuesto de los menores incapacitados, cuando la extensión de la incapacitación afecte al ejercicio y defensa de los derechos o intereses de que se trate.",
+      "C - Los menores de edad para el ejercicio y defensa de aquellos de sus derechos e intereses cuya actuación esté permitida por el ordenamiento jurídico sin la asistencia de la persona que ejerza la patria potestad, tutela o curatela, incluyendo los menores incapacitados, incluso cuando la extensión de la incapacitación afecte al ejercicio y defensa de los derechos o intereses de que se trate.",
+      "D - En todo caso, los grupos de afectados, las uniones y entidades sin personalidad jurídica y los patrimonios independientes o autónomos."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, se consideran interesados en el procedimiento administrativo:",
+    "options": [
+      "A - Quienes lo promuevan como titulares de derechos o intereses legítimos individuales o colectivos.",
+      "B - Los que, sin haber iniciado el procedimiento, tengan intereses personales que puedan resultar afectados por la decisión que en el mismo se adopte.",
+      "C - Aquellos cuyos intereses legítimos, individuales o colectivos, puedan resultar afectados por la resolución y se personen en el procedimiento una vez haya recaído resolución definitiva.",
+      "D - Todas las personas con capacidad de obrar."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta:",
+    "options": [
+      "A - Para formular solicitudes en nombre de otra persona, deberá acreditarse la representación. Para presentar declaraciones responsables o comunicaciones, interponer recursos, desistir de acciones y renunciar a derechos y para los actos y gestiones de mero trámite, se presumirá aquella representación.",
+      "B - Para formular solicitudes, presentar declaraciones responsables o comunicaciones en nombre de otra persona, deberá acreditarse la representación. Para interponer recursos, desistir de acciones y renunciar a derechos y para los actos y gestiones de mero trámite, se presumirá aquella representación.",
+      "C - Para formular solicitudes, presentar declaraciones responsables o comunicaciones, interponer recursos en nombre de otra persona, deberá acreditarse la representación. Para desistir de acciones y renunciar a derechos y para los actos y gestiones de mero trámite, se presumirá aquella representación.",
+      "D - Para formular solicitudes, presentar declaraciones responsables o comunicaciones, interponer recursos, desistir de acciones y renunciar a derechos en nombre de otra persona, deberá acreditarse la representación. Para los actos y gestiones de mero trámite se presumirá aquella representación."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, cuando en una solicitud, escrito o comunicación figuren varios interesados, las actuaciones a que den lugar se efectuarán:",
+    "options": [
+      "A - Con todos ellos.",
+      "B - Con el representante o el interesado que expresamente hayan señalado, y, en su defecto, con el que figure en primer término.",
+      "C - Con el representante o el interesado que expresamente hayan señalado, y, en su defecto, con el que tenga mayor edad.",
+      "D - Con el que tenga mayor edad."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, para interponer recursos las Administraciones Públicas requerirán a los interesados:",
+    "options": [
+      "A - El uso obligatorio de firma.",
+      "B - Que actúen mediante un abogado de forma obligatoria.",
+      "C - Que actúen mediante un abogado de forma obligatoria, si se trata de un recurso de alzada.",
+      "D - Que únicamente acrediten previamente su identidad a través de cualquiera de los medios de identificación previstos en la Ley."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta:",
+    "options": [
+      "A - Los empleados de las Administraciones Públicas para los trámites y actuaciones que realicen con ellas por razón de su condición de empleado público, podrán elegir en todo momento si se comunican con las Administraciones Públicas para el ejercicio de sus derechos y obligaciones a través de medios electrónicos o no.",
+      "B - Las entidades sin personalidad jurídica podrán elegir en todo momento si se comunican con las Administraciones Públicas para el ejercicio de sus derechos y obligaciones a través de medios electrónicos o no, salvo que estén obligadas a relacionarse a través de medios electrónicos con las Administraciones Públicas.",
+      "C - Las personas jurídicas podrán elegir en todo momento si se comunican con las Administraciones Públicas para el ejercicio de sus derechos y obligaciones a través de medios electrónicos o no, salvo que estén obligadas a relacionarse a través de medios electrónicos con las Administraciones Públicas.",
+      "D - Las personas físicas podrán elegir en todo momento si se comunican con las Administraciones Públicas para el ejercicio de sus derechos y obligaciones a través de medios electrónicos o no, salvo que estén obligadas a relacionarse a través de medios electrónicos con las Administraciones Públicas."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, en todo caso, estarán obligados a relacionarse a través de medios electrónicos con las Administraciones Públicas:",
+    "options": [
+      "A - Las personas físicas.",
+      "B - Las personas jurídicas.",
+      "C - Las personas físicas y las personas jurídicas.",
+      "D - Las personas físicas, las personas jurídicas y las entidades sin personalidad jurídica."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, la Administración:",
+    "options": [
+      "A - Está obligada a dictar resolución expresa y a notificarla en todos los procedimientos cualquiera que sea su forma de iniciación, exceptuando los supuestos de terminación del procedimiento por pacto o convenio, así como los procedimientos relativos al ejercicio de derechos sometidos únicamente al deber de declaración responsable o comunicación a la Administración.",
+      "B - Está obligada, en todo caso, a dictar resolución expresa y a notificarla en todos los procedimientos cualquiera que sea su forma de iniciación.",
+      "C - No está obligada a dictar resolución expresa y a notificarla en los casos de prescripción, renuncia del derecho, caducidad del procedimiento o desistimiento de la solicitud, así como de desaparición sobrevenida del objeto del procedimiento.",
+      "D - No está obligada a dictar resolución expresa y a notificarla en ningún caso."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, el transcurso del plazo máximo legal para resolver un procedimiento y notificar la resolución se suspenderá en el siguiente caso:",
+    "options": [
+      "A - Cuando deba requerirse a cualquier interesado para la subsanación de deficiencias o la aportación de documentos y otros elementos de juicio necesarios, por el tiempo que medie entre la notificación del requerimiento y su efectivo cumplimiento por el destinatario, o, en su defecto, por el del plazo concedido, todo ello sin perjuicio de lo previsto en el artículo 68 de la Ley 39/2015.",
+      "B - Cuando deba obtenerse un pronunciamiento previo y preceptivo de un órgano de la Unión Europea, por el tiempo que medie entre la petición, que habrá de comunicarse a los interesados, y la notificación del pronunciamiento a la Administración instructora, que también deberá serles comunicada.",
+      "C - Cuando los interesados promuevan la recusación en cualquier momento de la tramitación de un procedimiento, desde que ésta se plantee hasta que sea resuelta por el superior jerárquico del recusado.",
+      "D - Cuando se soliciten informes preceptivos a un órgano de la misma o distinta Administración, por el tiempo que medie entre la petición, que deberá comunicarse a los interesados, y la recepción del informe, que igualmente deberá ser comunicada a los mismos. Este plazo de suspensión no podrá exceder en ningún caso de tres meses. En caso de no recibirse el informe en el plazo indicado, proseguirá el procedimiento."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta respecto a los procedimientos iniciados a solicitud del interesado:",
+    "options": [
+      "A - La resolución expresa posterior a la producción del acto sólo podrá dictarse de ser confirmatoria del mismo.",
+      "B - La resolución expresa posterior a la producción del acto se adoptará por la Administración sin vinculación alguna al sentido del silencio.",
+      "C - En los casos de estimación por silencio administrativo, la resolución expresa posterior a la producción del acto sólo podrá dictarse de ser confirmatoria del mismo y en los casos de desestimación por silencio administrativo, la resolución expresa posterior al vencimiento del plazo se adoptará por la Administración sin vinculación alguna al sentido del silencio.",
+      "D - En los casos de estimación por silencio administrativo, la resolución expresa posterior a la producción del acto se adoptará por la Administración sin vinculación alguna al sentido del silencio y en los casos de desestimación por silencio administrativo, la resolución expresa posterior al vencimiento del plazo sólo podrá dictarse de ser confirmatoria del mismo."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Según la Ley 39/2015, en los procedimientos iniciados de oficio de los que pudiera derivarse el reconocimiento de derechos, el vencimiento del plazo máximo sin resolución expresa:",
+    "options": [
+      "A - Producirá la caducidad del procedimiento.",
+      "B - Permitirá a los interesados entender estimadas sus pretensiones por silencio administrativo, salvo en los procedimientos relativos al ejercicio del derecho de petición.",
+      "C - Permitirá a los interesados entender estimadas sus pretensiones por silencio administrativo.",
+      "D - Permitirá a los interesados entender desestimadas sus pretensiones por silencio administrativo."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, tendrán la consideración de copias auténticas de un documento público administrativo:",
+    "options": [
+      "A - Las fotocopias simples realizadas por el interesado.",
+      "B - Las realizadas por los órganos competentes de las Administraciones Públicas en las que quede garantizada la identidad del órgano que ha realizado la copia y su contenido.",
+      "C - Cualquier documento escaneado enviado por correo electrónico.",
+      "D - Las fotografías realizadas con un dispositivo móvil, siempre y cuando se envíen posteriormente mediante firma electrónica autorizada del interesado."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, los interesados tienen derecho a no aportar documentos que:",
+    "options": [
+      "A - Consideren confidenciales o íntimos.",
+      "B - Ya se encuentren en poder de la Administración actuante o hayan sido elaborados por cualquier otra Administración.",
+      "C - Tengan una antigüedad superior a 5 años.",
+      "D - Tengan un coste de expedición superior a 20 euros."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, siempre que por Ley o en el Derecho de la Unión Europea no se exprese otro cómputo, cuando los plazos se señalen por días:",
+    "options": [
+      "A - Se entiende que éstos son hábiles, excluyéndose del cómputo los sábados, los domingos y los declarados festivos.",
+      "B - Se entiende que éstos son naturales, excluyéndose del cómputo los sábados, los domingos y los declarados festivos.",
+      "C - Se entiende que éstos son hábiles, excluyéndose del cómputo los domingos y los declarados festivos.",
+      "D - Se entiende que éstos son naturales, excluyéndose del cómputo los domingos y los declarados festivos."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta respecto al cómputo de plazos:",
+    "options": [
+      "A - Los plazos expresados por horas se contarán de hora en hora y de minuto en minuto desde la hora y minuto en que tenga lugar la notificación o publicación del acto de que se trate y no podrán tener una duración superior a cuarenta y ocho horas, en cuyo caso se expresarán en días.",
+      "B - Los plazos expresados en días se contarán a partir del día siguiente a aquel en que tenga lugar la notificación o publicación del acto de que se trate, o desde el siguiente a aquel en que se produzca la estimación o la desestimación por silencio administrativo.",
+      "C - Cuando el último día del plazo sea inhábil, se entenderá que el plazo expira en el primer día hábil anterior.",
+      "D - Si el plazo se fija en meses, si en el mes de vencimiento no hubiera día equivalente a aquel en que comienza el cómputo, se entenderá que el plazo expira el primer día del siguiente mes."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta respecto a las reglas de funcionamiento del registro electrónico:",
+    "options": [
+      "A - Permitirá la presentación de documentos todos los días hábiles del año durante las veinticuatro horas.",
+      "B - Permitirá la presentación de documentos todos los días hábiles del año durante la jornada laboral de la Administración Pública correspondiente.",
+      "C - A los efectos del cómputo de plazo fijado en días hábiles, y en lo que se refiere al cumplimiento de plazos por los interesados, la presentación en un día inhábil se entenderá realizada en la primera hora del primer día hábil siguiente salvo que una norma permita expresamente la recepción en día inhábil.",
+      "D - A los efectos del cómputo de plazo fijado en días hábiles, y en lo que se refiere al cumplimiento de plazos por los interesados, la presentación en un día inhábil se entenderá el primer día hábil anterior."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta respecto a la ampliación de plazos:",
+    "options": [
+      "A - La Administración, salvo precepto en contrario, podrá conceder de oficio o a petición de los interesados, una ampliación de los plazos establecidos, que no exceda de la mitad de los mismos, si las circunstancias lo aconsejan, aun cuando con ello se perjudiquen derechos de terceros.",
+      "B - La petición de los interesados sobre la ampliación deberá producirse, en todo caso, antes del vencimiento del plazo de que se trate y la decisión sobre la ampliación deberá adoptarse dentro de los diez días hábiles siguiente al vencimiento del plazo.",
+      "C - Cuando una incidencia técnica haya imposibilitado el funcionamiento ordinario del sistema o aplicación que corresponda, y hasta que se solucione el problema, la Administración podrá determinar una ampliación de los plazos no vencidos, debiendo publicar en la sede electrónica tanto la incidencia técnica acontecida como la ampliación concreta del plazo no vencido.",
+      "D - Los acuerdos sobre ampliación de plazos o sobre su denegación podrán recurrirse de acuerdo con lo previsto en el artículo 112 y siguientes de la ley."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Según la Ley 39/2015, los actos administrativos se producirán por escrito a través de medios electrónicos, a menos que:",
+    "options": [
+      "A - El interesado sea una persona física.",
+      "B - El interesado solicite que se realice a través de otros medios.",
+      "C - Una incidencia técnica lo impida, en cuyo caso se realizará de forma verbal.",
+      "D - Su naturaleza exija otra forma más adecuada de expresión y constancia."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, señale la respuesta correcta respecto a la notificación:",
+    "options": [
+      "A - Toda notificación deberá ser cursada dentro del plazo de quince días a partir de la fecha en que el acto haya sido dictado.",
+      "B - La notificación deberá contener el texto íntegro de la resolución, con indicación de si pone fin o no a la vía administrativa, la expresión de los recursos que procedan, en su caso, en vía administrativa y judicial, el órgano ante el que hubieran de presentarse y el plazo para interponerlos, sin perjuicio de que los interesados puedan ejercitar, en su caso, cualquier otro que estimen procedente.",
+      "C - Las notificaciones que, conteniendo el texto íntegro del acto, omitiesen alguno de los demás requisitos previstos en el apartado anterior, surtirán efecto a desde la fecha en que se dicten, siempre y cuando el interesado realice actuaciones que supongan el conocimiento del contenido y alcance de la resolución o acto objeto de la notificación, o interponga cualquier recurso que proceda.",
+      "D - Con independencia de que la notificación se realice en papel o por medios electrónicos, las Administraciones Públicas enviarán un aviso al dispositivo electrónico y/o a la dirección de correo electrónico del interesado que éste haya comunicado, informándole de la puesta a disposición de una notificación en la sede electrónica de la Administración u Organismo correspondiente o en la dirección electrónica habilitada única. La falta de práctica de este aviso impedirá que la notificación sea considerada plenamente válida."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 39/2015, en las notificaciones practicadas en papel, de no hallarse presente el interesado en el momento de la entrega, podrá hacerse cargo de la misma:",
+    "options": [
+      "A - Cualquier persona mayor de 14 años que se encuentre en el domicilio y haga constar su identidad.",
+      "B - Cualquier persona mayor de 14 años que sea familiar de primer grado y que se encuentre en el domicilio y haga constar su identidad.",
+      "C - Cualquier vecino mayor de edad y haga constar su identidad.",
+      "D - Cualquier persona mayor de edad que se encuentre en el domicilio y haga constar su identidad."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 39/2015, en todo caso, los actos administrativos serán objeto de publicación, surtiendo ésta los efectos de la notificación, entre otros, en el siguiente caso:",
+    "options": [
+      "A - Cuando se trate de actos que limiten derechos subjetivos o intereses legítimos.",
+      "B - Cuando se trate de actos que se separen del criterio seguido en actuaciones precedentes o del dictamen de órganos consultivos.",
+      "C - Cuando se trate de actos que acuerden la terminación del procedimiento por la imposibilidad material de continuarlo por causas sobrevenidas, así como cuando acuerden el desistimiento por la Administración en procedimientos iniciados de oficio.",
+      "D - Cuando se trate de actos integrantes de un procedimiento selectivo o de concurrencia competitiva de cualquier tipo. En este caso, la convocatoria del procedimiento deberá indicar el medio donde se efectuarán las sucesivas publicaciones, careciendo de validez las que se lleven a cabo en lugares distintos."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, son anulables los actos de la Administración que:",
+    "options": [
+      "A - Lesionen los derechos y libertades susceptibles de amparo constitucional.",
+      "B - Sean constitutivos de infracción penal o se dicten como consecuencia de ésta.",
+      "C - Se dicten prescindiendo total y absolutamente del procedimiento legalmente establecido o de las normas que contienen las reglas esenciales para la formación de la voluntad de los órganos colegiados.",
+      "D - Incurran en cualquier infracción del ordenamiento jurídico, incluso la desviación de poder."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Señale la respuesta correcta respecto a los límites a la extensión de la nulidad o anulabilidad de los actos:",
+    "options": [
+      "A - La nulidad o anulabilidad de un acto implicará la de los sucesivos en el procedimiento.",
+      "B - La nulidad o anulabilidad en parte del acto administrativo implicará la de las partes del mismo independientes de aquélla.",
+      "C - El órgano que declare la nulidad o anule las actuaciones dispondrá siempre la conservación de aquellos actos y trámites cuyo contenido se hubiera mantenido igual de no haberse cometido la infracción.",
+      "D - La Administración podrá convalidar los actos nulos."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Según la Ley 39/2015, las Administraciones Públicas, en cualquier momento, por iniciativa propia o a solicitud de interesado, declararán de oficio la nulidad de los actos administrativos que hayan puesto fin a la vía administrativa o que no hayan sido recurridos en plazo, siempre que:",
+    "options": [
+      "A - Sean actos desfavorables para el interesado.",
+      "B - Concurra alguna de las causas de nulidad de pleno derecho previstas en el artículo 47.1 de la Ley 39/2015.",
+      "C - El error sea de carácter puramente material o aritmético.",
+      "D - Haya pasado menos de un año desde su notificación."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Podrán interponerse por los interesados los recursos de alzada y potestativo de reposición, que cabrá fundar en cualquiera de los motivos de nulidad o anulabilidad previstos en los artículos 47 y 48 de la Ley 39/2015:",
+    "options": [
+      "A - Contra las resoluciones y los actos de trámite.",
+      "B - Contra las resoluciones y los actos de trámite que pongan fin a la vía administrativa.",
+      "C - Contra las resoluciones y los actos de trámite que no pongan fin a la vía administrativa.",
+      "D - Contra las resoluciones y los actos de trámite, si estos últimos deciden directa o indirectamente el fondo del asunto, determinan la imposibilidad de continuar el procedimiento, producen indefensión o perjuicio irreparable a derechos e intereses legítimos."
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Según la Ley 39/2015, haber transcurrido el plazo para la interposición del recurso:",
+    "options": [
+      "A - Será causa de desestimación del recurso.",
+      "B - Será causa de desestimación del recurso, salvo que se trate de un recurso potestativo de revisión.",
+      "C - Será causa de inadmisión del recurso.",
+      "D - Será causa de inadmisión del recurso, salvo que se trate de un recurso potestativo de revisión."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Señale la respuesta correcta respecto a los recursos de alzada:",
+    "options": [
+      "A - El plazo para la interposición del recurso de alzada será de un mes, si el acto fuera expreso. Transcurrido dicho plazo sin haberse interpuesto el recurso, la resolución será firme a todos los efectos. El plazo máximo para dictar y notificar la resolución será de tres meses.",
+      "B - El plazo para la interposición del recurso de alzada será de tres meses, si el acto fuera expreso. Transcurrido dicho plazo sin haberse interpuesto el recurso, la resolución será firme a todos los efectos. El plazo máximo para dictar y notificar la resolución será de un mes.",
+      "C - El plazo para la interposición del recurso de alzada será de un mes, si el acto fuera expreso. Transcurrido dicho plazo, únicamente podrá interponerse recurso contencioso-administrativo, sin perjuicio, en su caso, de la procedencia del recurso extraordinario de revisión.",
+      "D - El plazo para la interposición del recurso de alzada será de tres meses, si el acto fuera expreso. Transcurrido dicho plazo, únicamente podrá interponerse recurso contencioso-administrativo, sin perjuicio, en su caso, de la procedencia del recurso extraordinario de revisión."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Señale la respuesta correcta respecto a los recursos potestativos de reposición:",
+    "options": [
+      "A - El plazo para la interposición del recurso de reposición será de un mes, si el acto fuera expreso. Transcurrido dicho plazo sin haberse interpuesto el recurso, la resolución será firme a todos los efectos. El plazo máximo para dictar y notificar la resolución será de tres meses.",
+      "B - El plazo para la interposición del recurso de reposición será de tres meses, si el acto fuera expreso. Transcurrido dicho plazo sin haberse interpuesto el recurso, la resolución será firme a todos los efectos. El plazo máximo para dictar y notificar la resolución será de un mes.",
+      "C - El plazo para la interposición del recurso de reposición será de un mes, si el acto fuera expreso. Transcurrido dicho plazo, únicamente podrá interponerse recurso contencioso-administrativo, sin perjuicio, en su caso, de la procedencia del recurso extraordinario de revisión.",
+      "D - El plazo para la interposición del recurso de reposición será de tres meses, si el acto fuera expreso. Transcurrido dicho plazo, únicamente podrá interponerse recurso contencioso-administrativo, sin perjuicio, en su caso, de la procedencia del recurso extraordinario de revisión."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Según la Ley 40/2015, para la válida constitución del órgano, a efectos de la celebración de sesiones, deliberaciones y toma de acuerdos:",
+    "options": [
+      "A - Se requerirá la asistencia presencial, del Presidente y Secretario o en su caso, de quienes les suplan, y la asistencia, presencial o a distancia, de la mitad, al menos, de sus miembros.",
+      "B - Se requerirá la asistencia presencial, del Presidente y Secretario o en su caso, de quienes les suplan, y la asistencia, presencial o a distancia, de dos tercios, al menos, de sus miembros.",
+      "C - Se requerirá la asistencia, presencial o a distancia, del Presidente y Secretario o en su caso, de quienes les suplan, y la de la mitad, al menos, de sus miembros.",
+      "D - Se requerirá la asistencia, presencial o a distancia, del Presidente y Secretario o en su caso, de quienes les suplan, y de dos tercios, al menos, de sus miembros."
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Según la Ley 40/2015, es un motivo de abstención:",
+    "options": [
+      "A - Tener un vínculo matrimonial o situación de hecho asimilable y el parentesco de consanguinidad o afinidad dentro del cuarto grado, con cualquiera de los interesados, con los administradores de entidades o sociedades interesadas y también con los asesores, representantes legales o mandatarios que intervengan en el procedimiento, así como compartir despacho profesional o estar asociado con éstos para el asesoramiento, la representación o el mandato.",
+      "B - Tener amistad íntima o enemistad con cualquiera de los interesados, con los administradores de entidades o sociedades interesadas y también con los asesores, representantes legales o mandatarios que intervengan en el procedimiento, así como compartir despacho profesional o estar asociado con éstos para el asesoramiento, la representación o el mandato.",
+      "C - Haber intervenido como perito o como testigo en cualquier procedimiento de la Administración Pública.",
+      "D - Tener relación de servicio con persona natural o jurídica interesada directamente en el asunto, o haberle prestado en los cuatro últimos años servicios profesionales de cualquier tipo y en cualquier circunstancia o lugar."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 40/2015, podrá promoverse recusación por los interesados:",
+    "options": [
+      "A - Solo antes de que se inicie el procedimiento.",
+      "B - En cualquier momento de la tramitación del procedimiento.",
+      "C - Únicamente tras dictarse la resolución final.",
+      "D - En cualquier momento de la tramitación del procedimiento, únicamente cuando el motivo de recusación sea tener interés personal en el asunto de que se trate o en otro en cuya resolución pudiera influir la de aquél."
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Según la Ley 40/2015, la sede electrónica es:",
+    "options": [
+      "A - Aquella dirección electrónica, disponible para los ciudadanos a través de redes de telecomunicaciones, cuya titularidad corresponde a una Administración Pública, o bien a una o varios organismos públicos o entidades de Derecho Público en el ejercicio de sus competencias.",
+      "B - Aquella dirección electrónica, disponible para los ciudadanos a través de redes de telecomunicaciones, cuya titularidad corresponde a una Administración Pública, o bien a una o varios organismos públicos o entidades de Derecho Público o a una entidad privada en el ejercicio de sus competencias.",
+      "C - El punto de acceso electrónico cuya titularidad corresponda a una Administración Pública, organismo público o entidad de Derecho Público que permite el acceso a través de internet a la información publicada.",
+      "D - El punto de acceso electrónico cuya titularidad corresponda a una Administración Pública, organismo público, entidad de Derecho Público o entidad privada, que permite el acceso a través de internet a la información publicada."
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Según la Ley 40/2015, se entiende por portal de internet:",
+    "options": [
+      "A - Aquella dirección electrónica, disponible para los ciudadanos a través de redes de telecomunicaciones, cuya titularidad corresponde a una Administración Pública, o bien a una o varios organismos públicos o entidades de Derecho Público en el ejercicio de sus competencias.",
+      "B - Aquella dirección electrónica, disponible para los ciudadanos a través de redes de telecomunicaciones, cuya titularidad corresponde a una Administración Pública, o bien a una o varios organismos públicos o entidades de Derecho Público o a una entidad privada en el ejercicio de sus competencias.",
+      "C - El punto de acceso electrónico cuya titularidad corresponda a una Administración Pública, organismo público o entidad de Derecho Público que permite el acceso a través de internet a la información publicada.",
+      "D - El punto de acceso electrónico cuya titularidad corresponda a una Administración Pública, organismo público, entidad de Derecho Público o entidad privada, que permite el acceso a través de internet a la información publicada."
+    ],
+    "correct": 3
+  }
+];
+            let DOM = {};
+
+            const estado = {
+                preguntaActual: 0,
+                totalPreguntas: preguntas.length
+            };
+
+            let botonesOpciones;
+            let indicesPreguntas;
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            function toggleClasses(element, addClass, removeClasses) {
+                if (removeClasses && removeClasses.length > 0) {
+                    removeClasses.forEach(cls => element.classList.remove(cls));
+                }
+                if (addClass) {
+                    element.classList.add(addClass);
+                }
+            }
+
+            function mostrarModal(message) {
+                DOM.modalMessage.textContent = message;
+                DOM.modalOverlay.classList.remove('hidden');
+            }
+
+            function ocultarModal() {
+                DOM.modalOverlay.classList.add('hidden');
+            }
+
+            function marcarRespuesta(index) {
+                const pregunta = preguntas[index];
+
+                const botonCorrecto = botonesOpciones[pregunta.correct];
+                const indiceCorrecto = indicesPreguntas[index];
+
+                toggleClasses(indiceCorrecto, null, ['correcta', 'incorrecta']);
+
+                if (pregunta.respuestaUsuario !== null) {
+                    toggleClasses(botonCorrecto, 'correcta');
+
+                    if (pregunta.esCorrecta) {
+                        toggleClasses(indiceCorrecto, 'correcta');
+                    } else {
+                        const botonSeleccionado = botonesOpciones[pregunta.respuestaUsuario];
+                        toggleClasses(botonSeleccionado, 'incorrecta');
+                        toggleClasses(indiceCorrecto, 'incorrecta');
+                    }
+                }
+            }
+
+            function mostrarPregunta() {
+                const { preguntaActual, totalPreguntas } = estado;
+                DOM.contenidoPregunta.classList.remove('hidden');
+                DOM.rectanguloResumen.classList.remove('hidden');
+
+                const pregunta = preguntas[preguntaActual];
+                const cleanedQuestion = pregunta.question.replace(/^\s*(\d+\.\s*)+/, '');
+                DOM.preguntaTexto.textContent = `${preguntaActual + 1}. ${cleanedQuestion}`;
+
+                botonesOpciones.forEach((boton, index) => {
+                    toggleClasses(boton, null, ['seleccionada', 'correcta', 'incorrecta']);
+                    boton.textContent = pregunta.options[index];
+                    boton.disabled = pregunta.comprobada;
+                });
+
+                if (pregunta.respuestaUsuario !== null) {
+                    toggleClasses(botonesOpciones[pregunta.respuestaUsuario], 'seleccionada');
+                    if (pregunta.comprobada) {
+                        marcarRespuesta(preguntaActual);
+                    }
+                }
+
+                if (indicesPreguntas) {
+                    indicesPreguntas.forEach(indice => indice.classList.remove('activa'));
+                    indicesPreguntas[preguntaActual].classList.add('activa');
+                }
+
+                DOM.comprobarBtn.classList.toggle('hidden', pregunta.comprobada);
+                actualizarEstadoBotones();
+            }
+
+            function manejarSeleccion(event) {
+                const boton = event.target.closest('.opcion');
+                if (boton) {
+                    const pregunta = preguntas[estado.preguntaActual];
+                    if (!pregunta.comprobada) {
+                        botonesOpciones.forEach(b => toggleClasses(b, null, ['seleccionada']));
+                        toggleClasses(boton, 'seleccionada');
+                    }
+                }
+            }
+
+            function comprobarRespuesta() {
+                const respuestaSeleccionadaActual = DOM.opcionesContenedor.querySelector('.opcion.seleccionada');
+                if (!respuestaSeleccionadaActual) {
+                    mostrarModal('Por favor, selecciona una respuesta antes de comprobar.');
+                    return;
+                }
+                const { preguntaActual } = estado;
+                const pregunta = preguntas[preguntaActual];
+                const respuestaIndex = parseInt(respuestaSeleccionadaActual.dataset.index);
+
+                pregunta.respuestaUsuario = respuestaIndex;
+                pregunta.comprobada = true;
+                pregunta.esCorrecta = (respuestaIndex === pregunta.correct);
+
+
+                marcarRespuesta(preguntaActual);
+                actualizarResumen();
+
+                botonesOpciones.forEach(boton => boton.disabled = true);
+                DOM.comprobarBtn.classList.add('hidden');
+            }
+
+            function actualizarEstadoBotones() {
+                const { preguntaActual, totalPreguntas } = estado;
+                const esUltimaPregunta = preguntaActual === totalPreguntas - 1;
+                DOM.siguienteBtn.disabled = esUltimaPregunta;
+            }
+
+            function siguientePregunta() {
+                const { preguntaActual, totalPreguntas } = estado;
+                if (preguntaActual < totalPreguntas - 1) {
+                    estado.preguntaActual++;
+                    mostrarPregunta();
+                }
+            }
+
+            function volverPregunta() {
+                const { preguntaActual } = estado;
+                if (preguntaActual > 0) {
+                    estado.preguntaActual--;
+                    mostrarPregunta();
+                }
+            }
+
+            function crearIndices() {
+                DOM.indicesContenedor.innerHTML = Array.from(
+                    {length: estado.totalPreguntas},
+                    (_, i) => `<div class="indice-pregunta" data-index="${i}">${i+1}</div>`
+                ).join('');
+                indicesPreguntas = DOM.indicesContenedor.querySelectorAll('.indice-pregunta');
+            }
+
+            function manejarClickIndice(event) {
+                const indice = event.target.closest('.indice-pregunta');
+                if (indice) {
+                    estado.preguntaActual = parseInt(indice.dataset.index);
+                    mostrarPregunta();
+                }
+            }
+
+            function actualizarResumen() {
+                indicesPreguntas.forEach((indice, index) => {
+                    toggleClasses(indice, null, ['correcta', 'incorrecta']);
+                    const pregunta = preguntas[index];
+                    if (pregunta.comprobada) {
+                        if (pregunta.esCorrecta) {
+                            toggleClasses(indice, 'correcta');
+                        } else {
+                            toggleClasses(indice, 'incorrecta');
+                        }
+                    }
+                });
+            }
+            
+
+            function cacheElements() {
+                return {
+                    preguntaTexto: document.getElementById('pregunta-texto'),
+                    opcionesContenedor: document.getElementById('opciones-contenedor'),
+                    siguienteBtn: document.getElementById('siguiente-btn'),
+                    comprobarBtn: document.getElementById('comprobar-btn'),
+                    indicesContenedor: document.getElementById('indices-contenedor'),
+                    contenedorTest: document.querySelector('section.contenedor-test'),
+                    rectanguloResumen: document.querySelector('footer.rectangulo-resumen'),
+                    modalOverlay: document.getElementById('custom-modal-overlay'),
+                    modalMessage: document.getElementById('custom-modal-message'),
+                    modalOkBtn: document.getElementById('custom-modal-ok'),
+                    contenidoPregunta: document.getElementById('contenido-pregunta')
+                };
+            }
+
+            function initData() {
+                preguntas = preguntas.map(p => ({
+                    ...p,
+                    respuestaUsuario: null,
+                    comprobada: false,
+                    esCorrecta: false
+                }));
+
+                const fragmentoOpciones = document.createDocumentFragment();
+                for (let i = 0; i < 4; i++) {
+                    const boton = document.createElement('button');
+                    boton.className = 'opcion';
+                    boton.dataset.index = i;
+                    fragmentoOpciones.appendChild(boton);
+                }
+                DOM.opcionesContenedor.appendChild(fragmentoOpciones);
+
+                botonesOpciones = Array.from(DOM.opcionesContenedor.querySelectorAll('.opcion'));
+
+                crearIndices();
+            }
+
+            function setupEvents() {
+                DOM.contenedorTest.addEventListener('click', (event) => {
+                    const target = event.target;
+                    if (target.id === 'siguiente-btn') {
+                        siguientePregunta();
+                    } else if (target.id === 'volver-btn') {
+                        volverPregunta();
+                    } else if (target.id === 'comprobar-btn') {
+                        comprobarRespuesta();
+                    } else if (target.classList.contains('opcion')) {
+                        manejarSeleccion(event);
+                    }
+                });
+
+                DOM.rectanguloResumen.addEventListener('click', (event) => {
+                    const target = event.target;
+                    if (target.classList.contains('indice-pregunta')) {
+                        manejarClickIndice(event);
+                    }
+                });
+
+                DOM.modalOkBtn.addEventListener('click', ocultarModal);
+                
+            }
+
+            function init() {
+                DOM = cacheElements();
+                initData();
+                setupEvents();
+                mostrarPregunta();
+            }
+
+            init();
+        });
+    </script>
+</body>
+</html>
