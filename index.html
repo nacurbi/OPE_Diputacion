@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPV/EHU – Oferta Pública de Empleo 2023-2024 (GRUPO C1 - ESCALA ADMINISTRATIVA)</title>
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F0F0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .contenedor-principal {
+            width: 100%;
+            max-width: 1200px;
+            padding-top: 52px;
+        }
+
+        /* Cabecera fija con los botones */
+        .encabezado-ope {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 4px 15px 5px;
+            border-bottom: 1.5px solid #2b2a7f;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 842px;
+            background-color: #F0F0F0;
+            z-index: 1000;
+        }
+
+        /* Botones del temario en horizontal */
+        .lista-indice {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        /* Cada elemento crece para que cada fila llegue de borde a borde (izquierda y derecha) */
+        .lista-indice > li {
+            flex: 1 1 auto;
+        }
+
+        .enlace-bloque {
+            display: block;
+            padding: 3px 6px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            color: #004085;
+            text-decoration: none;
+            font-size: 13px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .enlace-bloque:hover {
+            background-color: #cce5ff;
+            border-color: #2b2a7f;
+        }
+
+        /* Botón seleccionado: azul más oscuro */
+        .enlace-bloque.activo,
+        .enlace-bloque.activo:hover {
+            background-color: #2b2a7f;
+            border-color: #2b2a7f;
+            color: #ffffff;
+        }
+
+        /* Colores de seguimiento de cada bloque */
+        .enlace-bloque.verde    { --bg: #85d192; --bd: #5fb36f; --tx: #155724; }
+        .enlace-bloque.amarillo { --bg: #ffe08a; --bd: #e0b93a; --tx: #6b5200; }
+        .enlace-bloque.rojo     { --bg: #f0a1a8; --bd: #d9727c; --tx: #721c24; }
+
+        .enlace-bloque.verde, .enlace-bloque.amarillo, .enlace-bloque.rojo,
+        .enlace-bloque.verde:hover, .enlace-bloque.amarillo:hover, .enlace-bloque.rojo:hover {
+            background-color: var(--bg);
+            border-color: var(--bd);
+            color: var(--tx);
+        }
+
+        /* Bloque coloreado y seleccionado: conserva el color y se resalta con borde azul oscuro */
+        .enlace-bloque.activo.verde, .enlace-bloque.activo.amarillo, .enlace-bloque.activo.rojo,
+        .enlace-bloque.activo.verde:hover, .enlace-bloque.activo.amarillo:hover, .enlace-bloque.activo.rojo:hover {
+            border-color: #2b2a7f;
+            box-shadow: 0 0 0 2px #2b2a7f;
+        }
+
+        /* Selector de color del bloque seleccionado */
+        .selector-color {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 3px 8px;
+            background-color: transparent;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #6c757d;
+            transition: opacity 0.2s;
+        }
+        .selector-color.desactivado { opacity: 0.35; pointer-events: none; }
+        .selector-color .punto {
+            width: 14px;
+            height: 14px;
+            padding: 0;
+            border: 1px solid #8a8f94;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 9px;
+            line-height: 12px;
+            color: #555;
+            background: #f8f9fa;
+        }
+        .selector-color .punto.verde    { background: #85d192; }
+        .selector-color .punto.amarillo { background: #ffe08a; }
+        .selector-color .punto.rojo     { background: #f0a1a8; }
+        .selector-color .punto:hover { border-color: #2b2a7f; }
+
+        .marco-contenido {
+            width: 100%;
+            max-width: 882px; /* 842 px de la caja + 20 px de margen a cada lado del test */
+            height: 80vh;
+            display: block;
+            margin: 0 auto;
+            border: none;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-principal">
+
+        <header class="encabezado-ope">
+        <nav>
+            <ul class="lista-indice">
+                <li><a href="Test/bloque1.html" target="marco-contenido" class="enlace-bloque">Bloque 1</a></li>
+                <li><a href="Test/bloque2.html" target="marco-contenido" class="enlace-bloque">Bloque 2</a></li>
+                <li><a href="Test/bloque3.html" target="marco-contenido" class="enlace-bloque">Bloque 3</a></li>
+                <li><a href="Test/bloque4.html" target="marco-contenido" class="enlace-bloque">Bloque 4</a></li>
+                <li><a href="Test/bloque5.html" target="marco-contenido" class="enlace-bloque">Bloque 5</a></li>
+                <li><a href="Test/bloque6.html" target="marco-contenido" class="enlace-bloque">Bloque 6</a></li>
+                <li><a href="Test/bloque7.html" target="marco-contenido" class="enlace-bloque">Bloque 7</a></li>
+                <li><a href="Test/bloque8.html" target="marco-contenido" class="enlace-bloque">Bloque 8</a></li>
+                <li><a href="Test/bloque9.html" target="marco-contenido" class="enlace-bloque">Bloque 9</a></li>
+                <li><a href="Test/bloque10.html" target="marco-contenido" class="enlace-bloque">Bloque 10</a></li>
+                <li><a href="Test/bloque11.html" target="marco-contenido" class="enlace-bloque">Bloque 11</a></li>
+                <li><a href="Test/bloque12.html" target="marco-contenido" class="enlace-bloque">Bloque 12</a></li>
+                <li><a href="Test/bloque13.html" target="marco-contenido" class="enlace-bloque">Bloque 13</a></li>
+                <li><a href="Test/bloque14.html" target="marco-contenido" class="enlace-bloque">Bloque 14</a></li>
+                <li><a href="Test/bloque15.html" target="marco-contenido" class="enlace-bloque">Bloque 15</a></li>
+                <li><a href="Test/bloque16.html" target="marco-contenido" class="enlace-bloque">Bloque 16</a></li>
+                <li><a href="Test/bloque17.html" target="marco-contenido" class="enlace-bloque">Bloque 17</a></li>
+                <li><a href="Test/bloque18.html" target="marco-contenido" class="enlace-bloque">Bloque 18</a></li>
+                <li><a href="Test/60_Aleatorias.html" target="marco-contenido" class="enlace-bloque">Aleatorias</a></li>
+                <li class="selector-color desactivado" id="selector-color">
+                    <button type="button" class="punto verde" data-color="verde" title="Verde: bloque bien"></button>
+                    <button type="button" class="punto amarillo" data-color="amarillo" title="Amarillo"></button>
+                    <button type="button" class="punto rojo" data-color="rojo" title="Rojo: fallos"></button>
+                    <button type="button" class="punto" data-color="" title="Quitar color">✕</button>
+                </li>
+            </ul>
+        </nav>
+        </header>
+
+
+        <main>
+            <iframe id="marco-contenido" name="marco-contenido" class="marco-contenido" title="Contenido del tema" srcdoc="<p style=&quot;font-family:Arial, sans-serif; color:#666; text-align:center; margin-top:40px;&quot;>Selecciona un tema del índice para comenzar el test.</p>"></iframe>
+        </main>
+    </div>
+
+    <script>
+        // Ajusta la altura del iframe según lo que reporta cada test
+        window.addEventListener('message', function (event) {
+            if (event.data && event.data.tipo === 'alturaContenido') {
+                document.getElementById('marco-contenido').style.height = event.data.altura + 'px';
+            }
+        });
+
+        // Marca el botón pulsado hasta que se pulse otro
+        const botones = document.querySelectorAll('.enlace-bloque');
+        let botonActivo = null;
+        botones.forEach(function (boton) {
+            boton.addEventListener('click', function () {
+                botones.forEach(function (b) { b.classList.remove('activo'); });
+                boton.classList.add('activo');
+                botonActivo = boton;
+                actualizarSelector();
+            });
+        });
+
+        // Colores de los bloques (verde / amarillo / rojo), guardados en el navegador
+        const CLAVE_COLORES = 'diputacion_colores_bloques';
+        const COLORES = ['verde', 'amarillo', 'rojo'];
+        const selector = document.getElementById('selector-color');
+
+        function idBloque(boton) {
+            const m = boton.getAttribute('href').match(/bloque(\d+)\.html/);
+            return m ? m[1] : null;
+        }
+        function leerColores() {
+            try { return JSON.parse(localStorage.getItem(CLAVE_COLORES)) || {}; } catch (e) { return {}; }
+        }
+        function guardarColores(obj) {
+            try { localStorage.setItem(CLAVE_COLORES, JSON.stringify(obj)); } catch (e) { /* sin almacenamiento */ }
+        }
+        function pintar(boton, color) {
+            COLORES.forEach(function (c) { boton.classList.remove(c); });
+            if (color) boton.classList.add(color);
+        }
+        function actualizarSelector() {
+            // Solo se pueden colorear los botones "Bloque N"
+            const activo = botonActivo && idBloque(botonActivo) !== null;
+            selector.classList.toggle('desactivado', !activo);
+        }
+
+        // Aplica los colores guardados al cargar
+        const guardados = leerColores();
+        botones.forEach(function (boton) {
+            const id = idBloque(boton);
+            if (id && guardados[id]) pintar(boton, guardados[id]);
+        });
+
+        selector.addEventListener('click', function (e) {
+            const punto = e.target.closest('.punto');
+            if (!punto || !botonActivo) return;
+            const id = idBloque(botonActivo);
+            if (!id) return;
+            const color = punto.dataset.color;
+            const datos = leerColores();
+            if (color) { datos[id] = color; } else { delete datos[id]; }
+            guardarColores(datos);
+            pintar(botonActivo, color);
+        });
+
+        // La cabecera es fija: el contenido empieza justo debajo, sea cual sea su altura
+        const cabecera = document.querySelector('.encabezado-ope');
+        const contenedor = document.querySelector('.contenedor-principal');
+        function ajustarEspacio() {
+            contenedor.style.paddingTop = Math.max(0, cabecera.offsetHeight + 4 - 20) + 'px';
+        }
+        window.addEventListener('resize', ajustarEspacio);
+        ajustarEspacio();
+    </script>
+</body>
+</html>
